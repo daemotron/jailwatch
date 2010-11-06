@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />
+</head>
+<body class="login">
+
+	<div id="container">
+	
+	
+	<!-- BEGIN Header -->
+	<div id="header">
+		<h1>Anmelden</h1>
+	</div>
+	<!-- END Header -->
+	
+	<!-- BEGIN Content -->
+	<div id="content">
+		
+		<div class="failed" py:if="login_error">Bitte einen gültigen Benutzernamen und ein Passwort eingeben. Beide Felder berücksichtigen die Groß-/Kleinschreibung.</div>
+		
+		<form action="" method="post">
+			<div style='display:none'><input type='hidden' name='csrf_token' value='${csrftoken}' /></div>
+			<div class="form-row">
+				<label for="id_username">Benutzername:</label>
+				<input type="text" name="username" id="id_username" />
+			</div>
+			<div class="form-row">
+				<label for="id_password">Passwort:</label>
+				<input type="password" name="password" id="id_password" />
+			</div>
+			<div class="submit-row">
+				<label>&nbsp;</label>
+				<input type="submit" value="Anmelden" />
+			</div>
+		</form>
+		
+		<script type="text/javascript">
+		document.getElementById('id_username').focus();
+		</script>
+		
+	</div>
+	<!-- END Content -->
+	
+	<div id="footer"></div>
+	
+	</div>
+</body>
+</html>
