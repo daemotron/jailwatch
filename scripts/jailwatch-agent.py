@@ -19,8 +19,16 @@ import os
 import sys
 import plistlib
 import cPickle
+import subprocess
 import xml.parsers.expat
 from optparse import OptionParser
+
+def get_jail_list():
+    jails = []
+    jls = subprocess.Popen(["/usr/sbin/jls"], stdout=subprocess.PIPE).communicate()[0].splitlines()[1:]
+    for line in jls:
+        jails.append(line.split())
+    return jails
 
 def process_configuration(conf_object):
     result = {}

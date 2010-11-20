@@ -35,4 +35,8 @@ cherrypy.config.update(config_file)
 from jailwatch.controller import Root
 
 application = cherrypy.Application(Root(), script_name=None, config=None)
-WSGIServer(application).run()
+
+try:
+    WSGIServer(application).run()
+finally:
+    cherrypy.engine.stop()
