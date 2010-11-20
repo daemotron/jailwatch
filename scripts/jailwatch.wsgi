@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+!/usr/bin/env python
 
 # Copyright (c) 2010 Daemotron <mail@daemotron.net>
 #
@@ -24,15 +24,14 @@ jailwatch_path = "/usr/local/www/jailwatch"
 import os
 import sys
 import cherrypy
-from flup.server.fcgi import WSGIServer
 
 sys.path.insert(0, jailwatch_path)
 
 # config must be updated before importing anything else
 cherrypy.config.update(config_file)
+cherrypy.config.update({'environment': 'embedded'})
 
 # add all other imports (particularly from jailwatch) here
 from jailwatch.controller import Root
 
 application = cherrypy.Application(Root(), script_name=None, config=None)
-WSGIServer(application).run()
