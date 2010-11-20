@@ -1,4 +1,4 @@
-!/usr/bin/env python
+#!/usr/bin/env python
 
 # Copyright (c) 2010 Daemotron <mail@daemotron.net>
 #
