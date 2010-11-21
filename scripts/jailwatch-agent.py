@@ -17,6 +17,7 @@
 
 import os
 import sys
+import re
 import plistlib
 import cPickle
 import subprocess
@@ -62,9 +63,13 @@ def check_process(jid, pid=None, process=None):
             return False
     elif process:
         try:
-            return process in PROCLIST[jid].values()
+            rg = re.compile(re.escape(process))
+            for value in PROCLIST[jid].values():
+                if rg.match(value):
+                    return True
         except:
             return False
+        return False
     else:
         return False
 
@@ -80,7 +85,7 @@ def get_jid(pid):
 def load_socket_lists():
     global SOCKLIST
     socketlist = {'tcp': {}, 'udp': {}, 'unix': {}}
-    socks = subprocess.Popen(['/usr/bin/sockstat', '-4', '-6', '-l'], stdout=subprocess.PIPE).communicate()[0].splitlines()[1:]
+    socks = subprocess.Popen(['/usr/bin/sockstat', '-4', '-6', '-u', '-l'], stdout=subprocess.PIPE).communicate()[0].splitlines()[1:]
     for line in socks:
         sock = line.split()
         pid = int(sock[2])
@@ -170,7 +175,7 @@ def process_configuration(conf_object):
         # Detect service availability
         tmp['services'] = {}
         for service in conf_object[key]['services'].keys():
-            tmp['services']['service'] = check_service(tmp['jid'], tmp['up'], service, conf_object[key]['services'][service])
+            tmp['services'][service] = check_service(tmp['jid'], tmp['up'], service, conf_object[key]['services'][service])
         result[key] = tmp
     return result
 
